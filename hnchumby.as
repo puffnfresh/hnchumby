@@ -1,6 +1,7 @@
 class org.brianmckenna.HNChumby extends MovieClip
 {
     static var NSTORIES = 10;
+    static var BARSIZE = 16;
 
     static function enterFrame()
     {
@@ -33,11 +34,22 @@ class org.brianmckenna.HNChumby extends MovieClip
     {
 	timeline.onEnterFrame = enterFrame;
 
-	var url = "http://brianmckenna.org/hnchumby.php";
+	var url = "http://feeds.feedburner.com/ycombinator/CXsT";
 
 	addBackground(timeline);
 
-	var fontSize = Stage.height / (NSTORIES * 1.5);
+	var barHeight = BARSIZE * 1.5;
+	var fontSize = (Stage.height - barHeight) / (NSTORIES * 1.5);
+
+	var topFormat = new TextFormat();
+	topFormat.bold = true;
+	topFormat.size = BARSIZE;
+
+	timeline.createTextField("top", 100, 0, 0, Stage.width, barHeight);
+	timeline["top"].text = "Hacker News";
+	timeline["top"].setTextFormat(topFormat);
+	timeline["top"].background = true;
+	timeline["top"].backgroundColor = 0xff6600;
 
 	var rankFormat = new TextFormat();
 	rankFormat.color = 0x828282;
@@ -47,14 +59,14 @@ class org.brianmckenna.HNChumby extends MovieClip
 	var linkFormat = new TextFormat();
 	linkFormat.size = fontSize;
 
-	var height = (Stage.height / NSTORIES);
+	var height = (Stage.height - barHeight) / NSTORIES;
 	for (var i = 0; i < NSTORIES; i++) {
-	    timeline.createTextField("rank" + i, i, 0, height * i, fontSize * 2, height);
+	    timeline.createTextField("rank" + i, i, 0, barHeight + (height * i), fontSize * 2, height);
 	    timeline["rank" + i].text = (i + 1) + ".";
 	    timeline["rank" + i].selectable = false;
 	    timeline["rank" + i].setTextFormat(rankFormat);
 
-	    timeline.createTextField("link" + i, NSTORIES + i, fontSize * 2, height * i, 600, height);
+	    timeline.createTextField("link" + i, NSTORIES + i, fontSize * 2, barHeight + (height * i), Stage.width, height);
 	    timeline["link" + i].selectable = false;
 	    timeline["link" + i].setNewTextFormat(linkFormat);
 	}
@@ -62,7 +74,7 @@ class org.brianmckenna.HNChumby extends MovieClip
 	var feed = new XML();
 	feed.onLoad = function(success) {
 	    if (success) {
-		var channel = feed.firstChild.firstChild;
+		var channel = feed.childNodes[1].firstChild;
 		var nodes = HNChumby.findElementsByName(channel, "item");
 
 		for(var i = 0; i < HNChumby.NSTORIES; i++) {
