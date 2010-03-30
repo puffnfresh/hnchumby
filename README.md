@@ -6,4 +6,6 @@ To compile:
 
     $ mtasc -swf hnchumby.swf -main -header 320:240:12 hnchumby.as
 
-I've submitted this widget to Chumby and I'm currently waiting for a review.
+If you just want to add the widget to a channel:
+
+http://www.chumby.com/guide/widget/Hacker%20News
