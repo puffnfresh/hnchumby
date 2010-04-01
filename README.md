@@ -2,9 +2,7 @@
 
 This project is a Hacker News client for Chumby.
 
-To compile:
-
-    $ mtasc -swf hnchumby.swf -main -header 320:240:12 hnchumby.as
+To compile, just run `make`.
 
 If you just want to add the widget to a channel:
 
