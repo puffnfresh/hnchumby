@@ -1,6 +1,6 @@
 class org.brianmckenna.HNChumby extends MovieClip
 {
-    static var URL = "http://feeds.feedburner.com/ycombinator/CXsT?format=xml";
+    static var URL = "https://news.ycombinator.com/rss";
     static var NSTORIES = 10;
     static var SREFRESH = 60;
     static var BARSIZE = 16;
